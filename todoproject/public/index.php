@@ -15,9 +15,9 @@ require 'config.php';
 require 'classes/Bootstrap.php';
 require 'classes/Controller.php';
 require 'classes/Model.php';
-require  'classes/Fix.php';
+require 'classes/Fix.php';
 require 'classes/checkPage.php';
-require  'classes/Messages.php';
+require 'classes/Messages.php';
 
 #controllers
 require 'controllers/Home.php';

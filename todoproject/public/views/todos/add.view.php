@@ -1,4 +1,3 @@
-<?php include_once 'main.view.php';?>
 <form class="form-horizontal" method="post">
     <fieldset>
         <legend>Add Todo</legend>
@@ -13,9 +12,9 @@
             <label for="select" class="col-lg-1 control-label">Gebruiker</label>
             <div class="col-lg-5">
 
-                <select class="form-control" id="select" name="user_id" multiple>
-                    <?php foreach ($viewmodel as $item) : ?>
-                        <option value="<?php echo $item['id']?>"><?php echo $item['username']?></option>
+                <select class="form-control" id="select" name="user_id" multiple="multiple">
+                    <?php foreach ($viewmodel as $user) : ?>
+                        <option value="<?php echo $user['id']?>"><?php echo $user['username']?></option>
                     <?php endforeach;?>
                 </select>
                 <span class="help-block">Selecteer gebruiker voor de taak.</span>

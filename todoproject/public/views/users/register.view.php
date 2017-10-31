@@ -1,6 +1,7 @@
 <form class="form-horizontal" method="post">
+    <?php Messages::displayMessage();?>
     <fieldset>
-        <legend>Register now!</legend>
+        <legend>Add user</legend>
         <div class="form-group">
             <label for="inputText" class="col-lg-1 control-label">Username</label>
             <div class="col-lg-5">
@@ -39,15 +40,13 @@
             <div class="col-lg-10">
                 <input type="password" class="form-control" id="confPassword" name="confpass" placeholder="Confirm password" onchange="checkPasswordMatch();" required>
                 <br>
-                <?php Messages::displayMessage();?>
             </div>
 
         </div>
         <div class="form-group">
             <div class="col-lg-5 col-lg-offset-1">
-                <button type="reset" class="btn btn-default">Cancel</button>
+                <a href="<?php ROOT_URL;?>" class="btn btn-default">Cancel</a>
                 <input type="submit" name="submit" value="submit" id= "inpbutton" class="btn btn-primary">
-
             </div>
         </div>
 

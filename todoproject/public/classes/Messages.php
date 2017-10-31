@@ -6,22 +6,30 @@
  * Time: 19:37
  */
 
-class Messages
-{
+class Messages{
+    /**
+     * @param $text : vul message in
+     * @param $type : geef type van message aan met error of success.
+     */
     public static function setMessage($text, $type){
+        // kijk of type error is.
         if($type == 'error'){
             $_SESSION['errorMessage'] = $text;
         }elseif($type == 'success'){
             $_SESSION['successMessage'] = $text;
         }
-
     }
 
+/* Static functie die de error of success message toont
+ * door te kijken of er een succesmessage of errormessage in de $_SESSION array zit.
+ */
     public static function displayMessage(){
         if(isset($_SESSION['errorMessage'])){
             echo '<div class="alert alert-dismissible alert-danger">
                     <button type="button" class="close" data-dismiss="alert"></button>
-                    <strong>Oh snap! </strong>' . $_SESSION['errorMessage'] . '</div>';
+                    <strong>Ooops! </strong>'
+                    . $_SESSION['errorMessage']
+                    . '</div>';
             unset($_SESSION['errorMessage']);
         }
         elseif(isset($_SESSION['successMessage'])){

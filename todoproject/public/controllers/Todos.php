@@ -9,7 +9,7 @@
 class Todos extends Controller {
     protected function Index(){
         $viewmodel = new TodoModel();
-        $this->ReturnView($viewmodel->index(),true);
+        $this->returnView($viewmodel->index(),true);
     }
 
     protected function add(){
@@ -21,7 +21,7 @@ class Todos extends Controller {
             header('Location: '. ROOT_URL . 'todos');
         }
         $viewmodel = new TodoModel();
-        $this->ReturnView($viewmodel->add(),true);
+        $this->returnView($viewmodel->add(),true);
     }
 
     protected function update(){
@@ -34,4 +34,6 @@ class Todos extends Controller {
         $viewmodel = new TodoModel();
         $this->returnView($viewmodel->update(),true);
     }
+
+
 }

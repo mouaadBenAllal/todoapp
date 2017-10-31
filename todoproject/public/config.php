@@ -13,8 +13,8 @@ define("DB_PASS","root");
 define("DB_NAME","mytodos");
 
 #Bepaal url
-define("ROOT_PATH","/todoproject/");
-define("ROOT_URL","http://localhost/todoproject/");
+define("ROOT_PATH","/todoproject/public/");
+define("ROOT_URL","http://localhost/todoproject/public/");
 
 
 

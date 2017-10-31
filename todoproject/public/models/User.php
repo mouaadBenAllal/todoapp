@@ -16,15 +16,14 @@ class UserModel extends Model{
             # Als er op de knop is geklikt, voert het de onderstaande select query uit,
             # om te kijken of de email al bestaat..
             $this->query('SELECT email FROM users WHERE email =:email');
-            $this->bind(':email', $_POST['email']);
+            $this->bind(':email', $post['email']);
             $row = $this->single();
             if($row){
                 Messages::setMessage('Deze email bestaat al!','error');
-                return;
             }else{
                 $this->query('INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, :role)');
-                $this->bind(':username',$_POST['username']);
-                $this->bind(':email',$_POST['email']);
+                $this->bind(':username',$post['username']);
+                $this->bind(':email',$post['email']);
                 $this->bind(':password',$hash_password);
                 $this->bind(':role',$post['role']);
                 $this->execute();
@@ -42,12 +41,17 @@ class UserModel extends Model{
         return $row;
     }
 
+
+    /*
+     * Login functie
+     *
+     */
     public function login(){
         $post = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
         $password = md5($post['password']);
-        if($post['submit']){
-            // Compare Login
+        if(isset($post['submit'])){
+            // Haalt alle users op om te vergelijken.
             $this->query('SELECT * FROM users WHERE email = :email AND password=:password ');
 
             $this->bind(':email', $post['email']);
@@ -63,10 +67,10 @@ class UserModel extends Model{
                 ];
                 $_SESSION['message'] = "<div class=\"alert alert-dismissible alert-success\">
                     <button type=\"button\" class=\"close\" data-dismiss=\"alert\"></button>
-                    <strong>U bent succesvol ingelogd. Welkom </strong>" . $_SESSION['user_info']['username'] . "!";
-                header('Location: '.ROOT_URL. 'todos/');
+                    U bent succesvol ingelogd. Welkom " ."<strong>". $_SESSION['user_info']['username'] . "</strong>" . "!";
+                header('Location: '.ROOT_URL. '/todos');
             }else{
-                Messages::setMessage('Incorrect login', 'error');
+                Messages::setMessage('Incorrect login.', 'error');
             }
         }
         return;
