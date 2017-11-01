@@ -3,6 +3,7 @@
         <legend>Login</legend>
 
         <div class="form-group">
+            <!-- Laat alle messages zien. -->
             <?php Messages::displayMessage();?>
             <label for="inputText" class="col-lg-1 control-label">Email</label>
             <div class="col-lg-5">

@@ -1,11 +1,15 @@
 <?php include_once 'views/main.view.php';?>
-<div><?php
-    if(!empty($_SESSION['message'])) {
+<!-- Als session message niet leeg is laat message zien. -->
+<div>
+    <?php if(!empty($_SESSION['message'])) {
         echo $_SESSION['message'];
         unset($_SESSION['message']);
     }
-    ?></div>
-<?php Messages::displayMessage();?>
+    ?>
+    <?php Messages::displayMessage();?>
+</div>
+<!-- foreach loop door alle tasks -->
+
 
 <div class="col-lg-9">
 
@@ -18,6 +22,7 @@
         <th>Description</th>
         <th>Status</th>
         <th>Created_at</th>
+        <th>Updated_at</th>
         <th>User</th>
         <?php if(isset($_SESSION['isLoggedIn'])) : ?>
             <th>Update / Delete?</th>
@@ -25,7 +30,7 @@
     </tr>
     </thead>
     <tbody>
-
+<!-- foreach loop door alle tasks -->
 <?php foreach ($viewmodel as $task) : ?>
     <tr><td><?=$task['id']?></td>
         <td><?=$task['description'];?></td>
@@ -37,33 +42,31 @@
         </td>
 
         <td><?=$task['created_at'];?></td>
+        <td><?=$task['updated_at'];?></td>
         <td><?=$task['username'];?></td>
+        <!-- Kijkt in session of isLogged in op true staat. -->
         <?php if(isset($_SESSION['isLoggedIn']) == true):?>
             <td><form method="post" action="<?php $_SERVER['PHP_SELF']?>">
 
-                    <a href="<?= ROOT_URL; ?>todos/update" class="btn btn-info">Update</a>   &nbsp
-                    <input type="submit" name="delete" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure?')">
+                    <a href="<?= ROOT_PATH; ?>todos/update" class="btn btn-info">Update</a>   &nbsp
                     <input type="hidden" name="delete_id" value="<?php echo $task['id'];?>">
+                    <input type="submit" name="delete" class="btn btn-danger" value="Delete" onClick="return confirm('Are you sure?')">
                 </form>
             </td>
         <?php endif; ?>
-
-
-
-
 <?php endforeach; ?>
     </tr>
     </tbody>
 </table>
-
+    <!-- Kijkt of array leeg is. -->
     <?php if(empty($viewmodel)) : ?>
         <?php echo "<b>Er zijn geen todo's voor jouw!</b>"?>
     <?endif; ?>
 
     <br>
     <br>
-
+    <!-- Kijkt of session isLogged in is geset. -->
     <?php if(isset($_SESSION['isLoggedIn'])) :?>
-        <a href="<?=ROOT_URL;?>todos/add" class="btn btn-default">Add Todo</a>
+        <a href="<?=ROOT_PATH;?>todos/add" class="btn btn-default">Add Todo</a>
     <?php endif;?>
     </div>

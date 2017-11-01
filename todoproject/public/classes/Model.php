@@ -12,7 +12,10 @@ abstract class Model
     protected $dbhandler;
     protected $statement;
     protected $error;
-    # new instance van PDO class
+
+    /**
+     * Model constructor.
+     */
     public function __construct()
     {
         $options = [
@@ -28,11 +31,19 @@ abstract class Model
         }
     }
 
-    # Methode die query accepteert en prepared
+    /**
+     * Methode die query accepteert en prepared
+     * @param $query
+     */
     public function query($query){
     $this->statement = $this->dbhandler->prepare($query);
     }
 
+    /**
+     * @param $param : parameter in de query.
+     * @param $value value van wat er gebined word.
+     * @param null $type
+     */
     public function bind($param, $value, $type=null) {
         if(is_null($type)) {
 
@@ -55,23 +66,31 @@ abstract class Model
         $this->statement->bindValue($param,$value,$type);
     }
 
-    #execute methode die statement execute.
+    /*
+     * execute methode die statement execute.
+     */
     public function execute(){
         $this->statement->execute();
     }
 
-    #methode die alle resultaten uit de db fetched.
+    /*
+     * methode die alle resultaten uit de db fetched.
+     */
     public function results(){
         $this->execute();
         return $this->statement->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    #methode die returned laatste ingevoerde id.
+    /*
+     * methode die returned laatste ingevoerde id.
+     */
     public function lastInsertId(){
         return $this->dbhandler->lastInsertId();
     }
 
-    #methode die 1 record uit database fetched.
+    /*
+     * methode die 1 record uit database fetched.
+     */
     public function single(){
         $this->execute();
         return $this->statement->fetch(PDO::FETCH_ASSOC);

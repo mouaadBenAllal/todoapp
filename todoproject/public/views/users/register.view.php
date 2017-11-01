@@ -45,7 +45,7 @@
         </div>
         <div class="form-group">
             <div class="col-lg-5 col-lg-offset-1">
-                <a href="<?php ROOT_URL;?>" class="btn btn-default">Cancel</a>
+                <a href="<?php echo ROOT_URL;?>todos" class="btn btn-default">Cancel</a>
                 <input type="submit" name="submit" value="submit" id= "inpbutton" class="btn btn-primary">
             </div>
         </div>

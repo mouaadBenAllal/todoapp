@@ -15,9 +15,9 @@
             <label for="select" class="col-lg-1 control-label">Todo</label>
             <div class="col-lg-5">
                 <select class="form-control" id="select" name="todo_id">
-                    <?php foreach ($viewmodel as $item) : ?>
-                        <option value="<?php echo $item['id']?>"><?php echo $item['description']?></option>
-
+                    <!-- foreach loop door alle todos-->
+                    <?php foreach ($viewmodel as $todo) : ?>
+                        <option value="<?php echo $todo['id'];?>"><?php echo $todo['description'];?></option>
                     <?php endforeach;?>
                 </select>
             </div>
@@ -43,7 +43,7 @@
 
         <div class="form-group">
             <div class="col-lg-10 col-lg-offset-1">
-                <a href="#" class="btn btn-default">Cancel</a>
+                <a href="<?php echo ROOT_PATH;?>todos" class="btn btn-default">Cancel</a>
                 <input type="submit" name="submit" value="submit" class="btn btn-primary">
             </div>
         </div>

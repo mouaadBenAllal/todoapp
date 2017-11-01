@@ -25,7 +25,7 @@
 
         <div class="form-group">
             <div class="col-lg-10 col-lg-offset-1">
-                <a href="<?php ROOT_URL; ?>index" class="btn btn-default">Cancel</a>
+                <a href="<?php echo ROOT_PATH; ?>todos" class="btn btn-default">Cancel</a>
                 <input type="submit" name="submit" value="submit" class="btn btn-primary">
             </div>
         </div>

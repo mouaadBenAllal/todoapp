@@ -5,6 +5,10 @@
  * Date: 07/10/2017
  * Time: 23:37
  */
+
+/**
+ * Class TodoModel
+ */
 class TodoModel extends Model
 {
     # Alle todos worden in de $row gereturned
@@ -12,18 +16,19 @@ class TodoModel extends Model
         $post = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
 
         if (isset($_SESSION['isLoggedIn']) && $_SESSION['user_info']['role'] == 4) {
-            $this->query('SELECT todos.id, todos.description, todos.created_at, users.username, todos.completed
+            $this->query('SELECT todos.id, todos.description, todos.created_at, todos.updated_at, users.username, todos.completed
                                 FROM todos
                                 INNER JOIN users 
                                 ON todos.user_id = users.id');
             $allTodos = $this->results();
         } else {
-            $this->query('SELECT todos.id, todos.description, todos.created_at, users.username, todos.completed
+            $this->query('SELECT todos.id, todos.description, todos.created_at, todos.updated_at, users.username, todos.completed
                                 FROM todos
                                 INNER JOIN users 
                                 ON todos.user_id = users.id');
             $allTodos = $this->results();
         }
+        // Als delete in $post array staat delete geklikte id.
         if (isset($post['delete'])) {
             $this->query('DELETE FROM todos WHERE id = :id');
             $this->bind(':id', $post['delete_id']);
@@ -31,8 +36,6 @@ class TodoModel extends Model
             echo "<meta http-equiv='refresh' content='0'>";
             echo Messages::setMessage('Todo succesvol verwijderd!','success');
             exit();
-
-
         }
         return $allTodos;
     }
@@ -54,7 +57,7 @@ class TodoModel extends Model
             $this->execute();
             // Kijkt of er laatste sql operatie is.
             if ($this->lastInsertId()) {
-                header('Location: ' . ROOT_URL . 'todos');
+                header('Location: ' . ROOT_PATH . 'todos');
                 return Messages::setMessage("Todo succesvol toegevoegd!",'success');
             }
 
@@ -68,12 +71,11 @@ class TodoModel extends Model
         return;
     }
     /*
-     * Update
+     * Update method om todo te updaten.
     */
     public function update()
     {
         $post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        $session_user = $_SESSION['user_info']['id'];
         if ($post['submit']) {
 
             $this->query('UPDATE todos SET description=:description, completed=:completed WHERE id =:todo_id ');
@@ -81,13 +83,14 @@ class TodoModel extends Model
             $this->bind('completed', $post['completed']);
             $this->bind('todo_id', $post['todo_id']);
             $this->execute();
-            header('Location: ' . ROOT_URL . 'todos');
+            header('Location: ' . ROOT_PATH . 'todos');
         }
 
-        if (isset($_SESSION['isLoggedIn']) && $_SESSION['user_info']['role'] == 4) {
+        if (isset($_SESSION['isLoggedIn'])) {
             $this->query('SELECT description,user_id,id FROM todos');
             $row = $this->results();
             return $row;
         }
+        return;
     }
 }

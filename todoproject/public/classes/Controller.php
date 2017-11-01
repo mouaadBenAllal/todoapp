@@ -25,7 +25,9 @@ abstract class Controller
     public function executeAction(){
         return $this->{$this->action}();
     }
-
+    /*
+     * Returned view die bij model hoort.
+     */
     protected function returnView($viewmodel, $fullview){
         $view = 'views/' . get_class($this) .'/' . $this->action . '.view.php';
         if($fullview){

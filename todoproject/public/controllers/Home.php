@@ -8,6 +8,9 @@
 
 class Home extends Controller{
 
+    /**
+     * Home controller returned view die bij homemodel hoort.
+     */
     protected function Index(){
         $viewmodel = new HomeModel();
         $this->ReturnView($viewmodel->Index(),true);
