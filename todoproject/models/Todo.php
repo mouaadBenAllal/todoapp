@@ -11,23 +11,11 @@
  */
 class TodoModel extends Model
 {
-    # Alle todos worden in de $row gereturned
-    public function index(){
+    /*
+     * Alle todos worden in de $row gereturned
+     */
+    public function all(){
         $post = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
-
-        if (isset($_SESSION['isLoggedIn']) && $_SESSION['user_info']['role'] == 4) {
-            $this->query('SELECT todos.id, todos.description, todos.created_at, todos.updated_at, users.username, todos.completed
-                                FROM todos
-                                INNER JOIN users 
-                                ON todos.user_id = users.id');
-            $allTodos = $this->results();
-        } else {
-            $this->query('SELECT todos.id, todos.description, todos.created_at, todos.updated_at, users.username, todos.completed
-                                FROM todos
-                                INNER JOIN users 
-                                ON todos.user_id = users.id');
-            $allTodos = $this->results();
-        }
         // Als delete in $post array staat delete geklikte id.
         if (isset($post['delete'])) {
             $this->query('DELETE FROM todos WHERE id = :id');
@@ -37,7 +25,22 @@ class TodoModel extends Model
             echo Messages::setMessage('Todo succesvol verwijderd!','success');
             exit();
         }
-        return $allTodos;
+
+        if (isset($_SESSION['isLoggedIn'])) {
+            $this->query('SELECT todos.id, todos.description, todos.created_at, todos.updated_at, users.username, todos.completed
+                                FROM todos
+                                INNER JOIN users 
+                                ON todos.user_id = users.id');
+            $allTodos = $this->results();
+            return $allTodos;
+        } else {
+            $this->query('SELECT todos.id, todos.description, todos.created_at, todos.updated_at, users.username, todos.completed
+                                FROM todos
+                                INNER JOIN users 
+                                ON todos.user_id = users.id');
+            $allTodos = $this->results();
+            return $allTodos;
+        }
     }
 
 /*
@@ -57,7 +60,7 @@ class TodoModel extends Model
             $this->execute();
             // Kijkt of er laatste sql operatie is.
             if ($this->lastInsertId()) {
-                header('Location: ' . ROOT_PATH . 'todos');
+                header('Location: ' . ROOT_PATH . 'todos/all');
                 return Messages::setMessage("Todo succesvol toegevoegd!",'success');
             }
 
@@ -83,7 +86,7 @@ class TodoModel extends Model
             $this->bind('completed', $post['completed']);
             $this->bind('todo_id', $post['todo_id']);
             $this->execute();
-            header('Location: ' . ROOT_PATH . 'todos');
+            header('Location: ' . ROOT_PATH . 'todos/all');
         }
 
         if (isset($_SESSION['isLoggedIn'])) {

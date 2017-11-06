@@ -10,9 +10,10 @@ class Todos extends Controller {
     /**
      * todos controller returned view die bij todomodel hoort.
      */
-    protected function Index(){
+    protected function all()
+    {
         $viewmodel = new TodoModel();
-        $this->returnView($viewmodel->index(),true);
+        $this->returnView($viewmodel->all(),true);
     }
 
     /*
@@ -25,7 +26,7 @@ class Todos extends Controller {
             $_SESSION['message'] = "<div class=\"alert alert-dismissible alert-danger\">
                     <button type=\"button\" class=\"close\" data-dismiss=\"alert\"></button>
                     <strong>U moet ingelogd zijn om deze pagina te bezoeken! </strong>";
-            header('Location: '. ROOT_PATH . 'todos');
+            header('Location: '. ROOT_PATH . 'todos/all');
         }
         $viewmodel = new TodoModel();
         $this->returnView($viewmodel->add(),true);
@@ -40,7 +41,7 @@ class Todos extends Controller {
             $_SESSION['message'] = "<div class=\"alert alert-dismissible alert-danger\">
                     <button type=\"button\" class=\"close\" data-dismiss=\"alert\"></button>
                     <strong>U moet ingelogd zijn om deze pagina te bezoeken! </strong>";
-            header('Location: '. ROOT_PATH . 'todos');
+            header('Location: '. ROOT_PATH . 'todos/all');
         }
         $viewmodel = new TodoModel();
         $this->returnView($viewmodel->update(),true);

@@ -14,10 +14,4 @@ define("DB_NAME","mytodos");
 
 // Bepaal url
 define("ROOT_PATH","/todoproject/public/");
-define("ROOT_URL","http://localhost/todoproject/public/");
-
-
-
-
-
-
+define("ROOT_URL","/todoproject/public/");

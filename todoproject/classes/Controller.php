@@ -29,9 +29,9 @@ abstract class Controller
      * Returned view die bij model hoort.
      */
     protected function returnView($viewmodel, $fullview){
-        $view = 'views/' . get_class($this) .'/' . $this->action . '.view.php';
+        $view = '../views/'. strtolower(get_class($this)). '/' . $this->action. '.view.php';
         if($fullview){
-            require('views/main.view.php');
+            require('../views/main.view.php');
         }else{
             require($view);
         }

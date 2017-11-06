@@ -15,11 +15,14 @@ class Users extends Controller{
             $_SESSION['message'] = "<div class=\"alert alert-dismissible alert-danger\">
                     <button type=\"button\" class=\"close\" data-dismiss=\"alert\"></button>
                     <strong>U moet ingelogd zijn om deze pagina te bezoeken! </strong>";
-            header('Location: '. ROOT_PATH . 'todos');
+            header('Location: '. ROOT_PATH . 'todos/all');
         }
 
         if(isset($_SESSION['isLoggedIn']) && $_SESSION['user_info']['role'] != 3){
-            header('Location: '. ROOT_PATH . '/todos');
+            $_SESSION['message'] = "<div class=\"alert alert-dismissible alert-danger\">
+                    <button type=\"button\" class=\"close\" data-dismiss=\"alert\"></button>
+                    <strong>U moet Admin rechten hebben om deze pagina te bezoeken! </strong>";
+            header('Location: '. ROOT_PATH . 'todos/all');
         }
         $viewmodel = new UserModel();
         $this->returnView($viewmodel->register(),true);

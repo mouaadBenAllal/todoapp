@@ -77,7 +77,7 @@ class UserModel extends Model{
                 $_SESSION['message'] = "<div class=\"alert alert-dismissible alert-success\">
                     <button type=\"button\" class=\"close\" data-dismiss=\"alert\"></button>
                     U bent succesvol ingelogd. Welkom " ."<strong>". $_SESSION['user_info']['username'] . "</strong>" . "!";
-                header('Location: ' . ROOT_PATH . 'todos');
+                header('Location: ' . ROOT_PATH . 'todos/all');
             }else{
                 Messages::setMessage('Incorrect login.', 'error');
             }
